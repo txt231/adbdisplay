@@ -68,6 +68,28 @@ bool AdbDisplayInterface::SetValue(uint8_t displayRegister, uint8_t value)
 	return true;
 }
 
+bool AdbDisplayInterface::GetValue(uint8_t displayRegister, uint8_t& value)
+{
+	if(!SetReg2(displayRegister))
+		return false;
+	
+	AdbData<DisplayReg2> Reg({
+		._0 = 0x00,
+		.value = displayRegister
+	});
+	
+	auto Status = Send(AdbOp(Talk, Reg_2), Reg);
+	if (Status != 0)
+		return false;	
+	
+	_delay_ms(15*1);
+
+	value = Reg.data.value;
+
+	return true;
+}
+
+
 bool AdbDisplayInterface::Detect()
 {
 	printf("[%s] 1 - Enter\n", __FUNCTION__);

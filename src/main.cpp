@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include <LibPrintf.h>
 
-#include <adb.h>
+#include <Adb.h>
 #include <AdbDisplayInterface.h>
 
 static AdbInterface adb; 
@@ -46,6 +46,13 @@ void setup()
 
 	printf("Enable %i\n", pDisplay->Detect());
 
+	for(auto i = 0; i < 0x100; i++)
+	{
+		_delay_ms(15*4);
+		uint8_t Val;
+		if(pDisplay->GetValue(i, Val))
+			printf("[%i] = %i\n", i, Val);
+	}
 }
 
 void loop() {
