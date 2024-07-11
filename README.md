@@ -1,25 +1,36 @@
-# ADBDDC
+# ADB Display
 
-adbddc aims to be a bridge between apple adb connections used for some monitors and DDC which is a vesa standard.
+A project to explore apple adb protocol for apple displays.
 
+My end goal is to probably do a DDC to ADB converter, to allow for a proper vga connection.
+**At current state its just code to explore and test adb**j
 
-Settings Ids and interfacing code mainly reverse engineered from "Display Service Utility" program.
-I have not yet investigated monitor settings.
+***
 
+Adb interaction mainly reverse engineered from Display Service Utility. 
+AppleVision binary contains settings information as `ladt` resources, and a bit better way to query monitor type and revision. 
 
-## USB and adbuino devices
+## DDC
 
-While ddc can support usb over MCCS, and could possibly be doable with existing "adbuino" devices like QuokkADB, it is out of my scope.
+I hope to get DDC vcp values mapped to adb values.
+DDC communitcates over i2c.
+
+### Usb devices
+
+While ddc can support usb over MCCS, and could possibly be doable with existing "adbuino" devices like QuokkADB, but is out of my scope.
 More information should be available in the [ddcutil wiki](https://www.ddcutil.com/usb/)
 
 
-# Credits 
+# Credits
 
-This code is heavily inspired by:
+- `macemu/SheepShaver` for dynamic testing of apple adb interactions (Display service utility)
+
+
+ADB code and project structure is credited to:
 - [tmk keyboard](https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/protocol/adb.c) (Modified BSD (GPL compatible)) 
 - [adbuino](https://github.com/akuker/adbuino) (GPLv3)
 
-respect their licenses and wishes. I believe usage of GPLv3 would also make this gplv3.
+respect their licenses and wishes. I believe usage of GPLv3 would also make this GPLv3.
 
 ```
 The following copyright notice should be included with distributions of 
