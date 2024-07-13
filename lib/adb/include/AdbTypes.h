@@ -24,11 +24,11 @@ enum AdbCommand
 
 struct AdbDeviceInfo
 {
-	uint8_t adbAddr : 4; // 8 - 12
-	uint8_t _reserved1 : 1; // 12 | must be 0
-	uint8_t srq_enable : 1; // 13
-	uint8_t exceptional_event : 1; // 14 device specific 
-	uint8_t _reserved0 : 1; // 15
+	uint8_t adbAddr : 4; // 0 - 3
+	uint8_t _reserved1 : 1; // 4 | must be 0
+	uint8_t srq_enable : 1; // 5
+	uint8_t exceptional_event : 1; // 6 device specific 
+	uint8_t _reserved0 : 1; // 7
 };
 
 // assume this is big endian?
@@ -37,7 +37,7 @@ struct AdbReg3
 	AdbDeviceInfo info; //0x0000
 	// union
 	// {
-		uint8_t devType; //0x0001
+		uint8_t devType; //0x0001 
 	// 	uint8_t cmd; //0x0001
 	// };
 };
@@ -47,8 +47,9 @@ template <typename T>
 class AdbData
 {
 public:
-	AdbData() = default;
-	inline AdbData(T data)
+	AdbData() 
+	{}
+	inline constexpr AdbData(const T data)
 		: data(data)
 	{}
 	// inline AdbData(T& data)
@@ -68,7 +69,7 @@ public:
 			raw[i] = 0;
 	}
 
-	inline uint8_t size()
+	inline constexpr uint8_t size()
 	{
 		return sizeof(T);
 	}
@@ -77,16 +78,17 @@ public:
 
 class AdbOp
 {
-public:	AdbOp(AdbCommand cmd, AdbRegister reg)
-		: reg(reg)
-		, cmd(cmd)
-		, addr(0)
+public:	
+	constexpr AdbOp(const AdbCommand cmd, const AdbRegister reg)
+		: reg{reg}
+		, cmd{cmd}
+		, addr{0}
 	{}
 
-	AdbOp(uint8_t addr, AdbCommand cmd, AdbRegister reg)
-		: reg(reg)
-		, cmd(cmd)
-		, addr(addr)
+	constexpr AdbOp(const uint8_t addr, const AdbCommand cmd, const AdbRegister reg)
+		: reg{reg}
+		, cmd{cmd}
+		, addr{addr}
 	{}
 
 	union 

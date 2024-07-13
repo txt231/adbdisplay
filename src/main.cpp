@@ -42,13 +42,34 @@ void setup()
 			pDisplay->SetAddr(Devices[i].addr);
 		}
 	}
+	if (!pDisplay)
+		return;
 	
 
 	printf("Enable %i\n", pDisplay->Detect());
 
-	for(auto i = 0; i < 0x100; i++)
+	// printf("Setting geometry mode!\n");
+	
+
+	// printf("DumPSettings1 %i\n", pDisplay->DumpSettings1());
+	
+	// pDisplay->SetValue(20, 113);
+	// pDisplay->SetValue(17, 113);
+
+	// printf("Setting pos!\n");
+	// {
+	// 	for (auto i=25; i < 64; i++)
+	// 	{
+	// 		printf("%i\n", i);
+	// 		pDisplay->SetValue(56, i);
+	// 		_delay_ms(200);
+	// 	}
+	// }
+	// printf("Finished\n");
+
+	for(auto i = 0; i < 0x80; i++)
 	{
-		_delay_ms(15*4);
+		_delay_ms(15);
 		uint8_t Val;
 		if(pDisplay->GetValue(i, Val))
 			printf("[%i] = %i\n", i, Val);

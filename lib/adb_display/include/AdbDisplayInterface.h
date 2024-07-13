@@ -4,23 +4,19 @@
 #include <AdbDevice.h>
 
 
+#include <ParamInfo.h>
+
+
 enum DisplayType
 {
-	_0,
-	_1,
-	AppleVision1710,
-	AppleVision850,
-	_4,
-	AppleVision750,
+	Telecaster, 
+	Sousa,
+	Hammerhead, // 1710
+	Orca, // 850AV
+	Whaler, // 850
+	WarriorEZ, // 750
+	Manta, 
 };
-
-
-enum DispReg_Shared
-	: uint8_t
-{
-	_2 = 2,
-};
-
 
 struct DisplayReg1 
 {
@@ -48,7 +44,11 @@ public:
 	// {}
 
 protected:
-	DisplayType m_Type = DisplayType::_0;
+	DisplayType m_Type;
+	uint8_t m_Revision;
+	uint8_t m_VersionUnk;
+
+	const ParamInfo* m_pParams = nullptr;
 	
 private:
 
@@ -59,9 +59,27 @@ private:
 public:
 	bool Detect();
 	
-	bool GetValue(uint8_t displayRegister, uint8_t& value);
-	bool SetValue(uint8_t displayRegister, uint8_t value);
+	bool GetValueSafe(const uint8_t displayRegister, uint8_t& value);
+	bool SetValueSafe(const uint8_t displayRegister, const uint8_t value);
+	bool GetValue(const uint8_t displayRegister, uint8_t& value);
+	bool SetValue(const uint8_t displayRegister, const uint8_t value);
 
+	bool GetValueId(const uint32_t fourCC, uint8_t& value);
+	bool SetValueId(const uint32_t fourCC, const uint8_t value);
+
+	inline bool GetValueId(const char* pCC, uint8_t& value)
+	{
+		return GetValueId(FourCC(pCC), value);
+	}
+	inline bool SetValueId(const char* pCC, const uint8_t value)
+	{
+		return SetValueId(FourCC(pCC), value);
+	}
+	
+	bool DumpSettings1();
+	bool DumpSettings2();
+
+	bool SaveSettings();
 };
 
 
