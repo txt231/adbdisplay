@@ -7,7 +7,7 @@ namespace Params::Sousa
 
 	static const constexpr ParamInfo Sousa_Rev_1[] = {
 		ParamInfo("svol",  1, 0,  50, 3),
-        ParamInfo("smvl",  1, 0, 255, 0), // added in later macos
+		ParamInfo("smvl",  1, 0, 255, 0), // added in later macos
 		ParamInfo("treb",  2, 0, 100, 3),
 		ParamInfo("bass",  3, 0, 100, 3),
 		ParamInfo("hvol",  4, 0,  50, 3),
@@ -29,9 +29,9 @@ namespace Params::Sousa
 		ParamInfo("kypd", 22, 0, 255, 0),
 	
 
-        ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
-        ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
-        ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
+		ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
+		ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
+		ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
 	
 		ParamInfo(),
 	};

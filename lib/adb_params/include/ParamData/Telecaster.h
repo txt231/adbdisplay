@@ -6,7 +6,7 @@ namespace Params::Telecaster
 {
 	static const constexpr ParamInfo Telecaster_Rev_1[] = {
 		ParamInfo("svol",  1, 0,  50, 3),
-        ParamInfo("smvl",  1, 0, 255, 0), // added in later macos
+		ParamInfo("smvl",  1, 0, 255, 0), // added in later macos
 		ParamInfo("brgt",  2, 0, 100, 3),
 		ParamInfo("cont",  3, 0, 100, 3),
 		ParamInfo("hvol",  4, 0,  50, 3),

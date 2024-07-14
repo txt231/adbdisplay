@@ -16,6 +16,7 @@ namespace Params::Whaler
 	// 	ParamInfo("e2al",    8, 0,  255, 0),
 	// 	ParamInfo("e2rd",    8, 0,  255, 0),
 	// 	ParamInfo("e2dt",    9, 0,  255, 0),
+
 	// 	ParamInfo("kcod",   15, 0,    1, 0),
 	// 	ParamInfo("save",   16, 0,  255, 0),
 	// 	ParamInfo("sgsv",   17, 0,  255, 0),
@@ -28,6 +29,7 @@ namespace Params::Whaler
 	// 	ParamInfo("vcon",   24, 0,  254, 3),
 	// 	ParamInfo("rota",   25, 0,   63, 3),
 	// 	ParamInfo("cmod",   26, 0,    5, 0),
+
 	// 	ParamInfo("hwid",   45, 0,  254, 3),
 	// 	ParamInfo("hpos",   46, 0,  254, 3),
 	// 	ParamInfo("vhgt",   47, 0,  254, 3),
@@ -46,19 +48,24 @@ namespace Params::Whaler
 	// 	ParamInfo("para",   60, 0,  254, 3),
 	// 	ParamInfo("bow ",   61, 0,  254, 3),
 	// 	ParamInfo("g2g2",   62, 0,   63, 0),
+
 	// 	ParamInfo("scor",   64, 0,  254, 3),
 	// 	ParamInfo("ccor",   65, 0,  254, 3),
 	// 	ParamInfo("tvco",   66, 0,   63, 3),
 	// 	ParamInfo("bvco",   67, 0,   63, 3),
+
 	// 	ParamInfo("sexy",   69, 0,  254, 3),
 	// 	ParamInfo("hfoc",   70, 0,  254, 3),
+
 	// 	ParamInfo("rcur",   88, 0,  255, 0),
 	// 	ParamInfo("gcur",   89, 0,  255, 0),
 	// 	ParamInfo("bcur",   90, 0,  255, 0),
 	// 	ParamInfo("lran",   91, 0,    1, 0),
 	// 	ParamInfo("hran",   92, 0,    1, 0),
 	// 	ParamInfo("e2da",   93, 0,  255, 0),
+
 	// 	ParamInfo("e2dd",   95, 0,  255, 0),
+
 	// 	ParamInfo("orky",  125, 0,    1, 0),
 	// 	ParamInfo(),
 	// };
@@ -67,10 +74,12 @@ namespace Params::Whaler
 	// 	ParamInfo("lrem",    2, 0,    1, 0),
 	// 	ParamInfo("powr",    3, 0,    1, 0),
 	// 	ParamInfo("wigg",    4, 0,    1, 0),
+
 	// 	ParamInfo("e2la",    6, 0,  255, 0),
 	// 	ParamInfo("e2ha",    7, 0,    1, 0),
 	// 	ParamInfo("e2rd",    8, 0,  255, 0),
 	// 	ParamInfo("e2dt",    9, 0,  255, 0),
+
 	// 	ParamInfo("spkp",   14, 0,    1, 3),
 	// 	ParamInfo("kcod",   15, 0,  254, 0),
 	// 	ParamInfo("save",   16, 0,  254, 0),
@@ -83,10 +92,12 @@ namespace Params::Whaler
 	// 	ParamInfo("hcon",   23, 0,   31, 3),
 	// 	ParamInfo("vcon",   24, 0,  254, 3),
 	// 	ParamInfo("rota",   25, 0,   63, 3),
+
 	// 	ParamInfo("para",   27, 0,  254, 7),
 	// 	ParamInfo("tvco",   28, 0,   63, 3),
 	// 	ParamInfo("bvco",   29, 0,   63, 3),
 	// 	ParamInfo("cmod",   30, 0,    5, 0),
+
 	// 	ParamInfo("hwid",   53, 0,  254, 3),
 	// 	ParamInfo("hpos",   54, 0,  254, 7),
 	// 	ParamInfo("vhgt",   55, 0,  254, 7),
@@ -104,10 +115,12 @@ namespace Params::Whaler
 	// 	ParamInfo("bbrf",   67, 0,  127, 0),
 	// 	ParamInfo("bow ",   68, 0,  254, 3),
 	// 	ParamInfo("g2g2",   69, 0,   63, 0),
+
 	// 	ParamInfo("scor",   71, 0,  254, 3),
 	// 	ParamInfo("ccor",   72, 0,  254, 3),
 	// 	ParamInfo("sexy",   74, 0,   63, 3),
 	// 	ParamInfo("hfoc",   75, 0,  254, 3),
+
 	// 	ParamInfo("rcur",   88, 0,  255, 0),
 	// 	ParamInfo("gcur",   89, 0,  255, 0),
 	// 	ParamInfo("bcur",   90, 0,  255, 0),
@@ -131,7 +144,7 @@ namespace Params::Whaler
 		ParamInfo("e2ha",    7, 0,    1, 0), // E2 high address?
 		ParamInfo("e2rd",    8, 0,  255, 0), // E2 read?
 		ParamInfo("e2dt",    9, 0,  255, 0), // E2 ?
-        ParamInfo("dedi",   11, 0,    1, 8), // included in later macos
+		ParamInfo("dedi",   11, 0,    1, 8), // included in later macos
 		ParamInfo("dflt",   12, 0,    1, 8),
 
 		ParamInfo("spkp",   14, 0,    1, 3), // removed in later macos
@@ -146,6 +159,7 @@ namespace Params::Whaler
 		ParamInfo("hcon",   23, 0,  254, 3),
 		ParamInfo("vcon",   24, 0,  254, 3),
 		ParamInfo("rota",   25, 0,   63, 3),
+
 		ParamInfo("para",   27, 0,  254, 7),
 		ParamInfo("tvco",   28, 0,   63, 3),
 		ParamInfo("bvco",   29, 0,   63, 3),
@@ -178,9 +192,9 @@ namespace Params::Whaler
 		ParamInfo("sexy",   74, 0,   63, 3), // removed in later macos 
 		ParamInfo("hfoc",   75, 0,  254, 3), // removed in later macos 
 
-        ParamInfo("osk1",   85, 0,  255, 0), // included in later macos
-        ParamInfo("osk2",   86, 0,  255, 0), // included in later macos
-        ParamInfo("oskd",   87, 0,  255, 0), // included in later macos
+		ParamInfo("osk1",   85, 0,  255, 0), // included in later macos
+		ParamInfo("osk2",   86, 0,  255, 0), // included in later macos
+		ParamInfo("oskd",   87, 0,  255, 0), // included in later macos
 		ParamInfo("rcur",   88, 0,  255, 0),
 		ParamInfo("gcur",   89, 0,  255, 0),
 		ParamInfo("bcur",   90, 0,  255, 0),

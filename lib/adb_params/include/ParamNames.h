@@ -29,6 +29,7 @@ static const constexpr ParamNameEntry ParamNames[] {
 	ParamNameEntry("hcon", "Horizontal Convergence"),
 	ParamNameEntry("vcon", "Vertical Convergence"),
 	ParamNameEntry("rota", "Rotation"),
+	ParamNameEntry("rot ", "Rotation"),
 
 
 	ParamNameEntry("hwid", "Horizontal Width"),

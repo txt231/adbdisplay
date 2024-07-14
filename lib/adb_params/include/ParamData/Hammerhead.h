@@ -43,9 +43,9 @@ namespace Params::Hammerhead
 		ParamInfo("hran", 41, 0,   0, 0),
 	
 
-        ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
-        ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
-        ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
+		ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
+		ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
+		ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
 	
 		ParamInfo(),
 	};
@@ -93,9 +93,9 @@ namespace Params::Hammerhead
 		ParamInfo("hran", 41, 0,   0, 0),
 	
 
-        ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
-        ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
-        ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
+		ParamInfo("osk1",   49, 0,  255, 0), // CUSTOM
+		ParamInfo("osk2",   50, 0,  255, 0), // CUSTOM
+		ParamInfo("oskd",   51, 0,  255, 0), // CUSTOM
 	
 		ParamInfo(),
 	};
