@@ -4,7 +4,8 @@ A project to explore ADB(Apple Data Bus) protocol for some apple displays.
 
 My end goal is to probably do a DDC to ADB converter, to allow for a better vga connection.
 **At current state its just code to explore and test adb to a display**
-**check what code is run before you run it!**
+
+**check what the code is run before you run it!**
 
 Most of the registers/addresses that relates to actual monitor settings are only available when the display is turned on. But Some registers like power state, revision, copyright notice, etc. is readable when monitor is turned off.
 
