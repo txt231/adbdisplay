@@ -1,13 +1,19 @@
 # ADB Display
 
-A project to explore apple adb protocol for apple displays.
+A project to explore ADB(Apple Data Bus) protocol for some apple displays.
 
 My end goal is to probably do a DDC to ADB converter, to allow for a better vga connection.
 **At current state its just code to explore and test adb to a display**
+**check what code is run before you run it!**
 
-Most of the registers/addresses that relates to actual monitor settings are only available when the display is turned on. 
+Most of the registers/addresses that relates to actual monitor settings are only available when the display is turned on. But Some registers like power state, revision, copyright notice, etc. is readable when monitor is turned off.
 
-In my case all settings registers return 0xFF. My guess for this is because it is probably only supposed to be available in mac modes. My theory is that sense pins on connector needs to be set right, or RGBHV signal need to be recognized as a macintosh. 
+To read and write settings over ADB, param `lrem` needs to be set to 0. This is done in the `Detect` function. It also seems to disable OSD until 1 is written to it again. 
+
+After writing a register, the display does not save, and previous values will be restored on reboot.
+Im guessing save sequence refers to specific settings?
+
+`DumpSettings1` and `DumpSettings2` should dump some pieces of data that is in a parameter file used in service utility. 
 
 ***
 
@@ -16,27 +22,29 @@ Connected with a pullup resistor as described in other adb projects.
 
 
 
-## ADB
+## ADB Interaction
 
 ADB interaction with display is mainly taken from `Display Service Utility`. 
 
 AppleVision/Apple Monitor Plugins binary contains settings information as `ladt` resources. A script for reading these resources is in `dump_settings.py`. 
-This binary contains a bit better way to query monitor type and revision, but is hard to navigate by its heavy use of components and the `ComponentDispatch` syscall.
+This binary contains a bit better way to query monitor type and revision, but is annoying to navigate by its heavy use of components and the `ComponentDispatch` syscall.
 
 
 ## Models
 
-To reduce space used on the microcontroller, some settings tables been put behind ifdefs 
+To reduce space used on the microcontroller, some settings tables been put behind ifdefs (check `lib/adb_params/include/Params.h` and `platformio.ini`)
 
-| Codename 		| Model 			|
-| - 			| - 				|
-| Telecaster 	| 	 				|
-| Sousa 		|  					|
-| Hammerhead 	| AppleVision 1710 	|
-| Orca 			| AppleVision 850AV |
-| Whaler 		| AppleVision 850 	|
-| WarriorEZ 	| AppleVision 750 	|
-| Manta		 	| 	 				|
+
+NOTE: This table is not confirmed. 
+| Codename 		| Model 				|
+| - 			| - 					|
+| Telecaster 	| 	 					|
+| Sousa 		|  						|
+| Hammerhead 	| (AppleVision 1710)	|
+| Orca 			| AppleVision 850AV 	|
+| Whaler 		| AppleVision 850 		|
+| WarriorEZ 	| (AppleVision 750)		|
+| Manta		 	| 	 					|
 
 
 # Credits
@@ -48,15 +56,4 @@ To reduce space used on the microcontroller, some settings tables been put behin
 ADB code and project structure is credited to:
 - [tmk keyboard](https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/protocol/adb.c) | adb reading code
 - [adbuino](https://github.com/akuker/adbuino) | adb code and project structure
-- [stm32-adb2usb](https://github.com/szymonlopaciuk/stm32-adb2usb/blob/main/src/adb_structures.h) | for adb bitfield structures
-
-```
-The following copyright notice should be included with distributions of 
-this source code:
-    Copyright 2021-2023 Tony Kuker
-    Copyright 2022-2023 Rabbit Hole Computing LLC
-    Copyright 2020 Difegue
-    Copyright 2015 Rob Braun
-    Copyright 2011 Jun WAKO <wakojun@gmail.com>
-    Copyright 2013 Shay Green <gblargg@gmail.com>
-```
+- [stm32-adb2usb](https://github.com/szymonlopaciuk/stm32-adb2usb/blob/main/src/adb_structures.h) | for adb bitfield structure
