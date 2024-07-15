@@ -1,11 +1,12 @@
 //---------------------------------------------------------------------------
 //
-//	ADBuino ADB keyboard and mouse adapter
-//
 //	   Copyright (C) 2017 bbraun
 //	   Copyright (C) 2021-2022 akuker
 //
-//  This file is part of the ADBuino project.
+//  This file was part of the ADBuino and the QuokkaADB projects. 
+//  It has been modified to act as a host instead of a device.
+//  Most of the modifications to do that is based of the original tmk_keyboard
+//  code.
 //
 //  This file is free software: you can redistribute it and/or modify it under 
 //  the terms of the GNU General Public License as published by the Free 
@@ -40,7 +41,7 @@ public:
 protected:
 	// These need to be looked upon the arduino schematic to figure out
 	// which bank and databit the ADB pin is connected to
-	// Default is PIN 8 (i had issues with PIN 3 (PWM))
+	// Default is PIN 8 (i had issues with PIN 3)
 	#define ADB_PORT      PORTB
 	#define ADB_PIN       PINB
 	#define ADB_DDR       DDRB

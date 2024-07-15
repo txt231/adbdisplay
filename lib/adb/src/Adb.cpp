@@ -1,3 +1,34 @@
+//---------------------------------------------------------------------------
+//
+//     Copyright 2011 Jun WAKO <wakojun@gmail.com>
+//     Copyright 2013 Shay Green <gblargg@gmail.com>
+//	   Copyright (C) 2017 bbraun
+//	   Copyright (C) 2020 difegue
+//	   Copyright (C) 2021-2022 akuker
+//     Copyright (C) 2022 Rabbit Hole Computing LLC
+//
+//  This file was part of the ADBuino and the QuokkaADB projects. 
+//  It has been modified to act as a host instead of a device.
+//  Most of the modifications to do that is based of the original tmk_keyboard
+//  code.
+//
+//  This file is free software: you can redistribute it and/or modify it under 
+//  the terms of the GNU General Public License as published by the Free 
+//  Software Foundation, either version 3 of the License, or (at your option) 
+//  any later version.
+//
+//  This file is distributed in the hope that it will be useful, but WITHOUT ANY 
+//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+//  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+//  details.
+//
+//  You should have received a copy of the GNU General Public License along 
+//  with the file. If not, see <https://www.gnu.org/licenses/>.
+//
+//  Portions of this code were originally released under a Modified BSD 
+//  License. See LICENSE in the root of this repository for more info.
+//
+//----------------------------------------------------------------------------
 
 #include "Adb.h" 
 
@@ -10,9 +41,6 @@ int16_t AdbInterface::Send(AdbOp op)
 	
 	return 0;
 }
-
-// template <typename T>
-// int16_t AdbInterface::Send(AdbOp op, AdbData<T>& data)
 
 int16_t AdbInterface::Send(AdbOp op, uint8_t* pData, uint8_t dataLen)
 {
@@ -42,6 +70,8 @@ int16_t AdbInterface::Send(AdbOp op, uint8_t* pData, uint8_t dataLen)
 		send_byte(op.raw);
 		place_stop_bit(); // StopBit(0)
 		
+		// TODO: do proper delay checking like adbuino does
+		
 		if (!wait_data_hi(500)) // Service Request(310us Adjustable Keyboard): just ignored
 			return -2;
 		
@@ -57,7 +87,6 @@ int16_t AdbInterface::Send(AdbOp op, uint8_t* pData, uint8_t dataLen)
 		uint8_t bit = 0;
 		for (; bit < dataLen*8; bit++)
 		{
-
 			// printf("[%i] [%i]\n", bit, bit/8);
 			//
 			// |<- bit_cell_max(130) ->|
@@ -137,7 +166,6 @@ inline bool AdbInterface::attention(void)
 // Stop bit is just bit 0, but this doesn't wait after the signal goes high
 inline bool AdbInterface::place_stop_bit(void)
 {
-	// place_bit0();
 	data_lo();
 	adb_delay_us(70);
 	data_hi();
@@ -174,55 +202,3 @@ inline bool AdbInterface::send_byte(uint8_t data)
 	}
 	return true;
 }
-
-
-
-/* 
-inline bool AdbInterface::attention(void)
-{
-	data_lo();
-	adb_delay_us(ADB_ATTENTION_WAIT-35);
-	return place_bit1();
-}
-// The original data_lo code would just set the bit as an output
-// That works for a host, since the host is doing the pullup on the ADB line,
-// but for a device, it won't reliably pull the line low.  We need to actually
-// set it.
-
-// Stop bit is just bit 0, but this doesn't wait after the signal goes high
-inline bool AdbInterface::place_stop_bit(void)
-{
-	data_lo();
-	adb_delay_us(70);
-	data_hi();
-	return true;
-}
-
-inline bool AdbInterface::place_bit0(void)
-{
-	data_lo();
-	adb_delay_us(65);
-	data_hi();
-	return adb_delay_us(35);
-}
-
-inline bool AdbInterface::place_bit1(void)
-{
-	data_lo();
-	adb_delay_us(35);
-	data_hi();
-	return adb_delay_us(65);
-}
-inline bool AdbInterface::send_byte(uint8_t data)
-{
-	for (int i = 0; i < 8; i++)
-	{
-		if (data & (0x80 >> i))
-			place_bit1();
-		else
-			place_bit0();
-	}
-	return true;
-}
-
- */

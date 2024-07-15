@@ -6,6 +6,7 @@
 
 enum AdbDeviceType
 {
+	_0x60 = 0x60, // is this colorimeter or something?
 	Display = 0xc0,
 };
 

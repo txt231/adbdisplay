@@ -43,7 +43,7 @@ int32_t AdbDevice::Enable()
 
 	int32_t status;
 
-	AdbData<AdbReg3> Cmd(AdbReg3{
+	AdbData<AdbReg3> Cmd({
 		.info = {
 			.adbAddr = m_Addr,
 			._reserved1 = 0,

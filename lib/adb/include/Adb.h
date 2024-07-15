@@ -3,9 +3,11 @@
 //	   Copyright (C) 2017 bbraun
 //	   Copyright (C) 2021-2022 akuker
 //     Copyright (C) 2022 Rabbit Hole Computing LLC
-//     Copyright (C) 2024 txt
 //
-//  This file is part of the ADBuino and the QuokkaADB projects.
+//  This file was part of the ADBuino and the QuokkaADB projects. 
+//  It has been modified to act as a host instead of a device.
+//  Most of the modifications to do that is based of the original tmk_keyboard
+//  code.
 //
 //  This file is free software: you can redistribute it and/or modify it under 
 //  the terms of the GNU General Public License as published by the Free 
@@ -21,7 +23,6 @@
 //  with the file. If not, see <https://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-
 #pragma once
 
 #include <LibPrintf.h>

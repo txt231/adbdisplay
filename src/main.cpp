@@ -67,13 +67,69 @@ void setup()
 	// }
 	// printf("Finished\n");
 
-	for(auto i = 0; i < 0x80; i++)
+	// for(auto i = 0; i < 129; i++)
+	// {
+	// 	_delay_ms(15);
+	// 	uint8_t Val;
+	// 	if(pDisplay->GetValue(i, Val))
+	// 		printf("[%i] = %i\n", i, Val);
+	// }
+	
+
+	uint8_t GainOriginalVal[3] {209, 172, 179};
+	// pDisplay->GetValueId("rgan", GainOriginalVal[0]);
+	// pDisplay->GetValueId("ggan", GainOriginalVal[1]);
+	// pDisplay->GetValueId("bgan", GainOriginalVal[2]);
+
+	uint8_t CutOriginalVal[3] {121, 167, 140};
+	// pDisplay->GetValueId("rg2 ", CutOriginalVal[0]);
+	// pDisplay->GetValueId("gg2 ", CutOriginalVal[1]);
+	// pDisplay->GetValueId("bg2 ", CutOriginalVal[2]);
+
+	printf("RGB gain [%i, %i, %i]\n", GainOriginalVal[0], GainOriginalVal[1], GainOriginalVal[2]);
+	printf("RGB cut [%i, %i, %i]\n", CutOriginalVal[0], CutOriginalVal[1], CutOriginalVal[2]);
+	
 	{
-		_delay_ms(15);
-		uint8_t Val;
-		if(pDisplay->GetValue(i, Val))
-			printf("[%i] = %i\n", i, Val);
+		uint8_t MaxVal = max(GainOriginalVal[0], max(GainOriginalVal[1], GainOriginalVal[2]));
+		uint8_t AddVal = 254 - MaxVal;
+
+		pDisplay->SetValueId("rgan", GainOriginalVal[0]+AddVal);
+		pDisplay->SetValueId("ggan", GainOriginalVal[1]+AddVal);
+		pDisplay->SetValueId("bgan", GainOriginalVal[2]+AddVal);
 	}
+	
+	{
+
+		uint8_t MaxVal = max(CutOriginalVal[0], max(CutOriginalVal[1], CutOriginalVal[2]));
+		uint8_t AddVal = 254 - MaxVal;
+
+		for(uint16_t i=AddVal/2; i <= AddVal; i++)
+		{
+			printf("%i\n", i);
+			pDisplay->SetValueId("rg1 ", CutOriginalVal[0] + i);
+			pDisplay->SetValueId("gg1 ", CutOriginalVal[1] + i);
+			pDisplay->SetValueId("bg1 ", CutOriginalVal[2] + i);
+			
+			// _delay_ms(100);
+		}
+	}
+	printf("bright done!\n");
+
+	_delay_ms(1000*2);
+	
+	// pDisplay->SetValueId("rgan", GainOriginalVal[0]);
+	// pDisplay->SetValueId("ggan", GainOriginalVal[1]);
+	// pDisplay->SetValueId("bgan", GainOriginalVal[2]);
+
+	// pDisplay->SetValueId("rg1 ", CutOriginalVal[0]);
+	// pDisplay->SetValueId("gg1 ", CutOriginalVal[1]);
+	// pDisplay->SetValueId("bg1 ", CutOriginalVal[2]);
+
+
+	// to allow osd again
+	pDisplay->SetValueId("lrem", 1);
+	
+	
 }
 
 void loop() {

@@ -11,6 +11,7 @@ int32_t AdbDisplayInterface::Enable()
 		return status;
 	
 	// service utility sets this?
+	// moved to after monitor detection!
 	// SetValueSafe(2, 0); // "lrem"
 	return 0;
 }
@@ -170,8 +171,11 @@ bool AdbDisplayInterface::Detect()
 		break;
 	}
 
-	if(m_pParams == nullptr)
+	if (m_pParams == nullptr)
 		printf("Params is null. is ifdef enabled, or is this a new device?\n");
+	
+	// This disables the display OSD it seems.
+	SetValueId("lrem", 0);
 	
 	return m_pParams != nullptr;
 	// return true;
@@ -287,7 +291,7 @@ bool AdbDisplayInterface::SetValue(uint8_t displayRegister, uint8_t value)
 	if (Status != 0)
 		return false;
 
-	_delay_ms(15*2);
+	_delay_ms(15*4);
 	
 	AdbData<DisplayReg2> ValueReg({
 		._0 = 0x00,
@@ -297,7 +301,7 @@ bool AdbDisplayInterface::SetValue(uint8_t displayRegister, uint8_t value)
 	if (Status != 0)
 		return false;
 
-	_delay_ms(15*2);
+	_delay_ms(15*4);
 
 	return true;
 }
@@ -356,12 +360,12 @@ bool AdbDisplayInterface::GetValueId(uint32_t fourCC, uint8_t& value)
 		return false;
 
 	const ParamInfo* pParam = m_pParams;
-	while(pParam->m_Id != 0)
+	for (; pParam->Id != 0; pParam++)
 	{
-		if (pParam->m_Id != fourCC)
+		if (pParam->Id != fourCC)
 			continue;
 		
-		return GetValue(pParam->m_Reg, value);
+		return GetValue(pParam->Reg, value);
 	}
 	
 	return false;
@@ -372,15 +376,21 @@ bool AdbDisplayInterface::SetValueId(uint32_t fourCC, uint8_t value)
 		return false;
 
 	const ParamInfo* pParam = m_pParams;
-	while(pParam->m_Id != 0)
+	for(; pParam->Id != 0; pParam++)
 	{
-		if (pParam->m_Id != fourCC)
+		if (pParam->Id != fourCC)
 			continue;
 		
-		if (value > pParam->m_Max)
-			value = pParam->m_Max;
+		if (value > pParam->Max)
+			value = pParam->Max;
+		if (value < pParam->Min)
+			value = pParam->Min;
 		
-		return SetValue(pParam->m_Reg, value);
+		// TODO: fix inverse values
+		if (pParam->IsInverse())
+			value = pParam->Max - value;
+		
+		return SetValue(pParam->Reg, value);
 	}
 	
 	return false;
