@@ -8,11 +8,11 @@ class SettingsEntry(ctypes.BigEndianStructure):
 	_pack_ = 1
 	_fields_ = [
 		("typeId", ctypes.c_char*4),
-		("reg", ctypes.c_uint16),
-		("_0x0006", ctypes.c_uint16),
-		("max", ctypes.c_uint16), # is this switched? maybe
-		("min", ctypes.c_uint16),
-		("type", ctypes.c_uint16),
+		("reg", ctypes.c_uint16), #0x0004
+		("min", ctypes.c_uint16), #0x0008
+		("max", ctypes.c_uint16), #0x000c is this switched? maybe
+		("_0x000a", ctypes.c_uint16), # 0x000A
+		("flags", ctypes.c_uint16), # 0x000A
 	] # 0x000E
 	
 	@property
@@ -21,7 +21,7 @@ class SettingsEntry(ctypes.BigEndianStructure):
 		return struct.pack(">I", self.typeId).decode()
  
 	def cppName(self):
-		return "\"%s\",% 4i, %i,% 4i, %i" % (self.typeName, self.reg, self.min, self.max, self.type)
+		return "\"%s\",% 4i,% 2i,% 4i, %i, 0x%04x" % (self.typeName, self.reg, self.min, self.max, self._0x000a, self.flags)
  
 	def __str__(self) -> str:
 		return "[%s] - %-3i | %i-%-03i | %i" % (self.typeName, self.reg, self.min, self.max, self.type)
@@ -44,10 +44,10 @@ class SettingsEntry2(ctypes.BigEndianStructure):
 	_fields_ = [
 		("typeId", ctypes.c_char*4),
 		("reg", ctypes.c_uint32), #0x0004
-		("_0x0006", ctypes.c_uint32), #0x0008
+		("min", ctypes.c_uint32), #0x0008
 		("max", ctypes.c_uint32), #0x000C is this switched? maybe
-		("min", ctypes.c_uint32), #0x0010
-		("type", ctypes.c_uint32), #0x0014
+		("_0x0010", ctypes.c_uint32), #0x0010
+		("flags", ctypes.c_uint32), #0x0014
 	] # 0x0018
 	
 	@property
@@ -56,7 +56,7 @@ class SettingsEntry2(ctypes.BigEndianStructure):
 		return struct.pack(">I", self.typeId).decode()
  
 	def cppName(self):
-		return "\"%s\",% 4i, %i,% 4i, %i" % (self.typeName, self.reg, self.min, self.max, self.type)
+		return "\"%s\",% 4i, %i,% 4i, %i, 0x%04x" % (self.typeName, self.reg, self.min, self.max, self._0x0010, self.flags)
  
 	def __str__(self) -> str:
 		return "[%s] - %-3i | %i-%-03i | %i" % (self.typeName, self.reg, self.min, self.max, self.type)
@@ -79,7 +79,7 @@ class SettingsHeader2(ctypes.BigEndianStructure):
 	]
 	
 
-def dump(path):
+def dump(path, newFormat =False):
     
 	File = list(macresources.parse_rez_code(open(path, "rb").read()))
 
@@ -105,7 +105,7 @@ def dump(path):
 		Header = None
 		Entries = []
 	
-		if True:
+		if newFormat:
 			Header = SettingsHeader2.from_buffer_copy(Reader.read(ctypes.sizeof(SettingsHeader2)))
 			Entries = [SettingsEntry2.from_buffer_copy(Reader.read(ctypes.sizeof(SettingsEntry2))) for _ in range(Header.settingsCount)]
 		else:
@@ -131,5 +131,5 @@ def dump(path):
 
 		
 
-# dump("/home/txt/Documents/RE/apple/data/data/System Folder/Extensions/°AppleVision.rdump")
-dump("/home/txt/Documents/RE/apple/data/macos9_data/System Folder/Extensions/Apple Monitor Plugins.rdump")
+# dump("/home/txt/Documents/RE/apple/data/data/System Folder/Extensions/°AppleVision.rdump", False)
+dump("/home/txt/Documents/RE/apple/data/macos9_data/System Folder/Extensions/Apple Monitor Plugins.rdump", True)
