@@ -10,6 +10,7 @@ My end goal is to probably do a DDC to ADB converter, to allow for a better vga 
 Most of the registers/addresses that relates to actual monitor settings are only available when the display is turned on. But Some registers like power state, revision, copyright notice, etc. is readable when monitor is turned off.
 
 To read and write settings over ADB, param `lrem` needs to be set to 0. This is done in the `Detect` function. It also seems to disable OSD until 1 is written to it again. 
+Also note that writing settings doesnt seem to apply on certain resolutions. Im guessing it needs to be saved first. (might be display dependent) 
 
 After writing a register, the display does not save, and previous values will be restored on reboot.
 Im guessing save sequence refers to specific settings?
