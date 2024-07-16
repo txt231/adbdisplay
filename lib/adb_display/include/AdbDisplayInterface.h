@@ -58,6 +58,10 @@ private:
 
 public:
 	bool Detect();
+
+	bool DumpSettings1();
+	bool DumpSettings2();
+	bool SaveSettings();
 	
 	bool GetValueSafe(const uint8_t displayRegister, uint8_t& value);
 	bool SetValueSafe(const uint8_t displayRegister, const uint8_t value);
@@ -75,11 +79,29 @@ public:
 	{
 		return SetValueId(FourCC(pCC), value);
 	}
-	
-	bool DumpSettings1();
-	bool DumpSettings2();
 
-	bool SaveSettings();
+	bool GetParamFromId(const uint32_t id, const ParamInfo*& pVal) const;
+	bool GetParamFromId(const char* pCC, const ParamInfo*& pVal) const
+	{
+		return GetParamFromId(FourCC(pCC), pVal);
+	}
+	
+	inline bool GetRegFromId(const uint32_t id, uint8_t& val) const
+	{
+		const ParamInfo* pParam = nullptr;
+		if (!GetParamFromId(id, pParam))
+			return false;
+		
+		val = pParam->Reg;
+		return true;
+	}
+
+	inline bool GetRegFromId(const char* pCC, uint8_t& val) const
+	{
+		return GetRegFromId(FourCC(pCC), val);
+	}
+	
+;
 };
 
 

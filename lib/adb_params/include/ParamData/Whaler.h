@@ -156,13 +156,17 @@ namespace Params::Whaler
 		ParamInfo("spkp",  14,   0,   1, 0, 0x0003), // removed in later macos
 		ParamInfo("kcod",  15,   0, 254, 0, 0x0000),
 		ParamInfo("save",  16,  85, 170, 0, 0x0000),
+		// used for saving vars
+		// |-  sgsv = reg + 43
+		// - 0x71 = high voltage,
+		// - 0x60 = hwid
 		ParamInfo("sgsv",  17,   0, 254, 0, 0x0000),
 		ParamInfo("adft",  18,   0,   1, 7, 0x0008),
 
 		ParamInfo("over",  19,   0,   1, 2, 0x0003),
 		ParamInfo("nmxo",  19,   0, 255, 0, 0x0000),
 
-		ParamInfo("pass",  20,   0, 255, 0, 0x0000),
+		ParamInfo("pass",  20,   0, 255, 0, 0x0000), // used for unlocking vars? 0x71 for high voltage?
 		ParamInfo("cont",  21,   0,  56, 2, 0x0003),
 		ParamInfo("brgt",  22,   0,  40, 2, 0x0003),
 		ParamInfo("hcon",  23,   0, 254, 2, 0x0003),

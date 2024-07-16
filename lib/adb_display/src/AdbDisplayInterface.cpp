@@ -356,21 +356,30 @@ bool AdbDisplayInterface::SetValueSafe(uint8_t displayRegister, uint8_t value)
 
 bool AdbDisplayInterface::GetValueId(uint32_t fourCC, uint8_t& value)
 {
-	if (!m_pParams)
+	const ParamInfo* pParam = nullptr;
+	if(!GetParamFromId(fourCC, pParam))
 		return false;
 
-	const ParamInfo* pParam = m_pParams;
-	for (; pParam->Id != 0; pParam++)
-	{
-		if (pParam->Id != fourCC)
-			continue;
-		
-		return GetValue(pParam->Reg, value);
-	}
-	
-	return false;
+	return GetValue(pParam->Reg, value);
 }
 bool AdbDisplayInterface::SetValueId(uint32_t fourCC, uint8_t value)
+{
+	const ParamInfo* pParam = nullptr;
+	if(!GetParamFromId(fourCC, pParam))
+		return false;
+
+	if (value > pParam->Max)
+		value = pParam->Max;
+	if (value < pParam->Min)
+		value = pParam->Min;
+	
+	if (pParam->IsInverse())
+		value = pParam->Max - value;
+	
+	return SetValue(pParam->Reg, value);
+}
+
+bool AdbDisplayInterface::GetParamFromId(const uint32_t id, const ParamInfo*& pVal) const
 {
 	if (!m_pParams)
 		return false;
@@ -378,19 +387,11 @@ bool AdbDisplayInterface::SetValueId(uint32_t fourCC, uint8_t value)
 	const ParamInfo* pParam = m_pParams;
 	for(; pParam->Id != 0; pParam++)
 	{
-		if (pParam->Id != fourCC)
+		if (pParam->Id != id)
 			continue;
 		
-		if (value > pParam->Max)
-			value = pParam->Max;
-		if (value < pParam->Min)
-			value = pParam->Min;
-		
-		// TODO: fix inverse values
-		if (pParam->IsInverse())
-			value = pParam->Max - value;
-		
-		return SetValue(pParam->Reg, value);
+		pVal = pParam;	
+		return true;
 	}
 	
 	return false;
@@ -592,11 +593,19 @@ bool AdbDisplayInterface::SaveSettings()
 			return true;
 		};
 
-		uint8_t Sequence[]{
-			0x71, 0x65, 0x60, 0x62, 
-			0x61, 0x63, 0x64, 0x44
+		constexpr uint8_t Sequence[]{
+			70 + 43, // hvlt
+			58 + 43, // keys
+			53 + 43, // hwid
+			55 + 43, // vhgt
+			54 + 43, // hpos
+			56 + 43, // vpos
+			57 + 43, // pinc
+			25 + 43, // rota
 		};
-
+		
+		// this save value is probably offset in save rom?
+		// im guessing save rom is E2
 		for (uint8_t i=0; i < sizeof(Sequence); i++)
 			SetValueId("sgsv", Sequence[i]);
 
@@ -613,7 +622,10 @@ bool AdbDisplayInterface::SaveSettings()
 	else
 	{
 		uint8_t Sequence[] = {
-			0xaa, 0x99, 0x99, 0x66,
+			0xaa,
+			0x99, 
+			0x99, 
+			0x66,
 		};
 		
 		for(uint8_t i=0; i < sizeof(Sequence); i++)
