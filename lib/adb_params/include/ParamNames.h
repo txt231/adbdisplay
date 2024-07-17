@@ -47,12 +47,12 @@ namespace Params
 		ParamNameEntry("pinc", "Pincushion"),
 		ParamNameEntry("keys", "Keystone"),
 
-		ParamNameEntry("rgan", "Red Gain"),
-		ParamNameEntry("ggan", "Green Gain"),
-		ParamNameEntry("bgan", "Blue Gain"),
-		ParamNameEntry("rg2 ", "Red Cut"),
-		ParamNameEntry("gg2 ", "Green Cut"),
-		ParamNameEntry("bg2 ", "Blue Cut"),
+		ParamNameEntry("rgan", "Red Drive"),
+		ParamNameEntry("ggan", "Green Drive"),
+		ParamNameEntry("bgan", "Blue Drive"),
+		ParamNameEntry("rg2 ", "Red Cutoff"),
+		ParamNameEntry("gg2 ", "Green Cutoff"),
+		ParamNameEntry("bg2 ", "Blue Cutoff"),
 
 		ParamNameEntry("hvlt", "High Voltage"),
 
