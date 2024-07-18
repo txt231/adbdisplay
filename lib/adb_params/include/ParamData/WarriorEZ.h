@@ -53,6 +53,9 @@ namespace Params::WarriorEZ
 		ParamInfo("osk2",  40,  0, 255, 0, 0x0000), // CUSTOM
 		ParamInfo("oskd",  41,  0, 255, 0, 0x0000), // CUSTOM
 	
+
+		ParamInfo("hvlt",  45, 154, 177, 0, 0x0000), // CUSTOM | range: 154-177 | default = 167
+	
 		ParamInfo(),
 	};
 }
