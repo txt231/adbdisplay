@@ -39,6 +39,7 @@ namespace Params
 		ParamNameEntry("rota", "Rotation"),
 		ParamNameEntry("rot ", "Rotation"),
 
+		ParamNameEntry("para", "Parallelogram"),
 
 		ParamNameEntry("hwid", "Horizontal Width"),
 		ParamNameEntry("hpos", "Horizontal Pos"),
