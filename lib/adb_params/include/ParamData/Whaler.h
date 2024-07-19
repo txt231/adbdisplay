@@ -194,7 +194,7 @@ namespace Params::Whaler
 		ParamInfo("gbrf",  66,   0, 127, 0, 0x0000), // removed in later macos 
 		ParamInfo("bbrf",  67,   0, 127, 0, 0x0000), // removed in later macos 
 		ParamInfo("bow ",  68,   0, 254, 0, 0x0003), // removed in later macos 
-		ParamInfo("g2g2",  69,   0,  63, 0, 0x0000), // removed in later macos 
+		ParamInfo("g2g2",  69,   0, 254, 0, 0x0000), // removed in later macos  | has a default max of 63, but my default is 108
 
 		// 70 = High voltage
 		ParamInfo("hvlt",  70, 154, 177, 0, 0x0000), // CUSTOM | range: 154-177 | default = 167

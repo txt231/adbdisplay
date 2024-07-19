@@ -55,6 +55,7 @@ namespace Params
 		ParamNameEntry("gg2 ", "Green Cutoff"),
 		ParamNameEntry("bg2 ", "Blue Cutoff"),
 
+		ParamNameEntry("g2g2", "G2 Voltage"),
 		ParamNameEntry("hvlt", "High Voltage"),
 
 		ParamNameEntry("scor", "S correction"),
