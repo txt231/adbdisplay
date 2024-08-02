@@ -40,6 +40,9 @@ namespace Params
 		ParamNameEntry("rot ", "Rotation"),
 
 		ParamNameEntry("para", "Parallelogram"),
+		ParamNameEntry("tvco", "Top Vertical Convergence"), // TODO: confirm if vertical
+		ParamNameEntry("bvco", "Bottom Vertical Convergence"),
+		ParamNameEntry("cmod", "Color mode"), // whitepoint
 
 		ParamNameEntry("hwid", "Horizontal Width"),
 		ParamNameEntry("hpos", "Horizontal Pos"),

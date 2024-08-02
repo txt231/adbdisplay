@@ -28,8 +28,8 @@
 [25] = 32		rotation
 [26] = 2
 [27] = 108		Parallelogram
-[28] = 34		tv convergence
-[29] = 27		bv convergence
+[28] = 34		top v convergence
+[29] = 27		bottom v convergence
 [30] = 4		cmod
 
 [31] = 255
