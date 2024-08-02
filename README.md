@@ -61,4 +61,4 @@ ADB code and project structure is credited to:
 - [tmk keyboard](https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/protocol/adb.c) | adb reading code
 - [adbuino](https://github.com/akuker/adbuino) | adb code and project structure
 - [stm32-adb2usb](https://github.com/szymonlopaciuk/stm32-adb2usb/blob/main/src/adb_structures.h) | for adb bitfield structure, and gpio setup
-- [libopencm3-usb-serial]( * current: https://github.com/dhylands/libopencm3-usb-serial/blob/master/usb.c) | for usb serial code 
+- [libopencm3-usb-serial](https://github.com/dhylands/libopencm3-usb-serial/blob/master/usb.c) | for usb serial code 
