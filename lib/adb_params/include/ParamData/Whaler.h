@@ -176,7 +176,7 @@ namespace Params::Whaler
 		ParamInfo("para",  27,   0, 254, 2, 0x0007),
 		ParamInfo("tvco",  28,   0,  63, 2, 0x0003),
 		ParamInfo("bvco",  29,   0,  63, 2, 0x0003),
-		ParamInfo("cmod",  30,   0,   5, 1, 0x0000), // color mode, 2= D65, 4=D96
+		ParamInfo("cmod",  30,   0,   5, 1, 0x0000), // whitepoint, 0=41k, 1=D50, 2=D65, 3=D75, 4=D93
 
 		ParamInfo("hwid",  53,   0, 254, 4, 0x0003),
 		ParamInfo("hpos",  54,   0, 254, 4, 0x0007),
