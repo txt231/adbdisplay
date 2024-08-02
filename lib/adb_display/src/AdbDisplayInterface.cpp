@@ -4,7 +4,7 @@
 
 int32_t AdbDisplayInterface::Enable()
 {
-	printf("[%s] 1 - Enter\n", __FUNCTION__);
+	printf("log [%s] 1 - Enter\n", __FUNCTION__);
 
 	int32_t status = AdbDevice::Enable();
 	if (status != 0)
@@ -31,14 +31,14 @@ bool AdbDisplayInterface::SetReg2(uint8_t displayReigster)
 		return false;
 	
 	// delays by 1 macos tick, which according to docks is 1 frame, which is assumed to be 60 fps ~= 15ms
-	_delay_ms(15);
+	adb_delay_ms(15);
 	
 	Status = Send(AdbOp(Talk, Reg_1), Reg);
 	if (Status != 0)
 		return false;
 
 	// delays by 1 macos tick, which according to docks is 1 frame, which is assumed to be 60 fps ~= 15ms
-	_delay_ms(15);
+	adb_delay_ms(15);
 	
 	// why doesnt it compare reg here?
 
@@ -47,7 +47,7 @@ bool AdbDisplayInterface::SetReg2(uint8_t displayReigster)
 
 bool AdbDisplayInterface::Detect()
 {
-	printf("[%s] 1 - Enter\n", __FUNCTION__);
+	printf("log [%s] 1 - Enter\n", __FUNCTION__);
 
 	Enable();
 	
@@ -74,6 +74,7 @@ bool AdbDisplayInterface::Detect()
 	{
 		m_Revision = 1;
 		m_VersionUnk = 7;
+		break;
 	}
 	case DisplayType::Sousa:
 	{
@@ -141,7 +142,7 @@ bool AdbDisplayInterface::Detect()
 	}
 	
 	default:
-		printf("Unknown monitor type %i\n", DisplayTypeId);
+		printf("log Unknown monitor type %i\n", DisplayTypeId);
 		return false;
 	}
 	
@@ -172,7 +173,7 @@ bool AdbDisplayInterface::Detect()
 	}
 
 	if (m_pParams == nullptr)
-		printf("Params is null. is ifdef enabled, or is this a new device?\n");
+		printf("log Params is null. is ifdef enabled, or is this a new device?\n");
 	
 	// This disables the display OSD it seems.
 	SetValueId("lrem", 0);
@@ -265,7 +266,7 @@ bool AdbDisplayInterface::GetValue(uint8_t displayRegister, uint8_t& value)
 	if (Status != 0)
 		return false;
 
-	_delay_ms(15*2);
+	adb_delay_ms(15*2);
 	
 	AdbData<DisplayReg2> ValueReg({
 		._0 = 0x00,
@@ -275,7 +276,7 @@ bool AdbDisplayInterface::GetValue(uint8_t displayRegister, uint8_t& value)
 	if (Status != 0)
 		return false;	
 	
-	_delay_ms(15*2);
+	adb_delay_ms(15*2);
 
 	value = ValueReg.data.value;
 
@@ -291,7 +292,7 @@ bool AdbDisplayInterface::SetValue(uint8_t displayRegister, uint8_t value)
 	if (Status != 0)
 		return false;
 
-	_delay_ms(15*4);
+	adb_delay_ms(15*4);
 	
 	AdbData<DisplayReg2> ValueReg({
 		._0 = 0x00,
@@ -301,7 +302,7 @@ bool AdbDisplayInterface::SetValue(uint8_t displayRegister, uint8_t value)
 	if (Status != 0)
 		return false;
 
-	_delay_ms(15*4);
+	adb_delay_ms(15*4);
 
 	return true;
 }
@@ -320,7 +321,7 @@ bool AdbDisplayInterface::GetValueSafe(uint8_t displayRegister, uint8_t& value)
 	if (Status != 0)
 		return false;	
 	
-	_delay_ms(15*1);
+	adb_delay_ms(15*1);
 
 	value = Reg.data.value;
 
@@ -346,9 +347,9 @@ bool AdbDisplayInterface::SetValueSafe(uint8_t displayRegister, uint8_t value)
 
 	if (m_Type == DisplayType::Orca ||
 		m_Type == DisplayType::Whaler)
-		_delay_ms(15*2);
+		adb_delay_ms(15*2);
 	else
-		_delay_ms(15*4);
+		adb_delay_ms(15*4);
 
 	return true;
 }
@@ -410,7 +411,7 @@ bool AdbDisplayInterface::DumpSettings1()
 			uint8_t Value;
 			if(!GetValueId("osk1", Value))
 			{
-				printf("[%i] = ?\n", i);
+				printf("log [%i] = ?\n", i);
 				continue;
 			}
 			
@@ -423,9 +424,9 @@ bool AdbDisplayInterface::DumpSettings1()
 			{
 				if (m_Type == DisplayType::Orca ||
 					m_Type == DisplayType::Whaler)
-					printf("Unable to communicate with the display.\n\nThe CRT/Video board is defective.\n");
+					printf("log Unable to communicate with the display.\n\nThe CRT/Video board is defective.\n");
 				else
-					printf("There is no communication link with the display!\n\nMake sure the jumper is installed on the Video/CRT board.\n");
+					printf("log There is no communication link with the display!\n\nMake sure the jumper is installed on the Video/CRT board.\n");
 		
 				TestSettings[0] = 0;
 				// return false;
@@ -434,7 +435,7 @@ bool AdbDisplayInterface::DumpSettings1()
 
 			// this is +0x201
 
-			printf("[%i] = %i\n", i, Value);
+			printf("log [%i] = %i\n", i, Value);
 		}
 	}
 	{
@@ -447,14 +448,14 @@ bool AdbDisplayInterface::DumpSettings1()
 			uint8_t Value;
 			if(!GetValueId("osk2", Value))
 			{
-				printf("[%i] = ?\n", i);
+				printf("log [%i] = ?\n", i);
 				// printf("[%s] %i - %i\n", __FUNCTION__, 6, i);
 				continue;
 			}
 			
 
 			// this is + 0x300
-			printf("[%i] = %i\n", i, Value);
+			printf("log [%i] = %i\n", i, Value);
 		}
 	
 	}
@@ -568,9 +569,9 @@ bool AdbDisplayInterface::DumpSettings2()
 		
 		uint8_t Value;
 		if(!GetValueId("e2dt", Value))
-			printf("[%i] = ?\n", i);
+			printf("log [%i] = ?\n", i);
 		else
-			printf("[%i] = %i\n", i, Value);
+			printf("log [%i] = %i\n", i, Value);
 	}
 	
 	return true;
@@ -588,7 +589,7 @@ bool AdbDisplayInterface::SaveSettings()
 			if(!SetValueSafe(13, 0x22))
 				return false;
 			
-			_delay_ms(180*15);
+			adb_delay_ms(180*15);
 			
 			return true;
 		};

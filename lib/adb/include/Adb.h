@@ -25,7 +25,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-#include <LibPrintf.h>
 
 #include <stdint.h>
 #include <AdbPlatform.h>

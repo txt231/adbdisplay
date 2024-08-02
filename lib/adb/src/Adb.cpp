@@ -37,7 +37,7 @@ int16_t AdbInterface::Send(AdbOp op)
 	attention();
 	send_byte(op.raw);
 	place_stop_bit(); // StopBit(0)
-	_delay_us(200); // tlt/stop to start
+	adb_delay_us(200); // tlt/stop to start
 	
 	return 0;
 }

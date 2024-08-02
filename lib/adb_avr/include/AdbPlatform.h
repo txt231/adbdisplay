@@ -27,8 +27,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/cpufunc.h>
+#include <LibPrintf.h>
 
-#define adb_delay_us _delay_us
+#define adb_delay_us(x) _delay_us(x)
+#define adb_delay_ms(x) _delay_ms(x)
 
 class AdbInterfacePlatform 
 {
@@ -62,12 +64,16 @@ protected:
 
 inline void AdbInterfacePlatform::data_lo()
 {
+	// output
 	(ADB_DDR |= (1 << ADB_DATA_BIT));
+	
+	// drive low
 	(ADB_PORT &= ~(1 << ADB_DATA_BIT));
 }
 
 inline void AdbInterfacePlatform::data_hi()
 {
+	// input 
 	(ADB_DDR &= ~(1 << ADB_DATA_BIT));
 }
 inline uint8_t AdbInterfacePlatform::data_in()

@@ -79,16 +79,16 @@ public:
 class AdbOp
 {
 public:	
-	constexpr AdbOp(const AdbCommand cmd, const AdbRegister reg)
-		: reg{reg}
-		, cmd{cmd}
+	constexpr AdbOp(const AdbCommand _cmd, const AdbRegister _reg)
+		: reg{_reg}
+		, cmd{_cmd}
 		, addr{0}
 	{}
 
-	constexpr AdbOp(const uint8_t addr, const AdbCommand cmd, const AdbRegister reg)
-		: reg{reg}
-		, cmd{cmd}
-		, addr{addr}
+	constexpr AdbOp(const uint8_t _addr, const AdbCommand _cmd, const AdbRegister _reg)
+		: reg{_reg}
+		, cmd{_cmd}
+		, addr{_addr}
 	{}
 
 	union 

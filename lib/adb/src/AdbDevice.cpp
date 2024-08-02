@@ -39,7 +39,7 @@ void AdbDevice::SetAddr(uint8_t addr)
 
 int32_t AdbDevice::Enable()
 {
-	printf("[%s] 1 - Enter\n", __FUNCTION__);
+	printf("log [%s] 1 - Enter\n", __FUNCTION__);
 
 	int32_t status;
 
@@ -64,7 +64,7 @@ int32_t AdbDevice::Enable()
 		return status;
 	
 
-	printf("[Enable] got %02x%02x\n", Cmd.raw[0], Cmd.raw[1]);
+	printf("log [Enable] got %02x%02x\n", Cmd.raw[0], Cmd.raw[1]);
 
 	if (Cmd.data.info.srq_enable == false &&
 		Cmd.data.info.exceptional_event == false)
